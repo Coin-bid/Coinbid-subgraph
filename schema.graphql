@@ -1,0 +1,7 @@
+type AuctionBidEntity @entity {
+  id: ID!
+  nftId: BigInt! # uint256
+  bidPrice: BigInt! # uint256
+  bidder: Bytes!
+  time: BigInt! # uint256
+}

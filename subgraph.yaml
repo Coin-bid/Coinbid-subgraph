@@ -1,0 +1,33 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: NFTAuction
+    network: kovan
+    source:
+      address: "0x0b464262603071A935a760ada21057d8266Ac7c4"
+      abi: NFTAuction
+      startBlock: 25842232
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFTAuctionBid
+        - NFTAuctionCreated
+        - NFTAuctionEnded
+        - OwnershipTransferred
+      abis:
+        - name: NFTAuction
+          file: ./abis/NFTAuction.json
+      eventHandlers:
+        - event: NFTAuctionBid(uint256,uint256,address)
+          handler: handleNFTAuctionBid
+        - event: NFTAuctionCreated(uint256,uint256,uint256)
+          handler: handleNFTAuctionCreated
+        - event: NFTAuctionEnded(uint256,uint256,address)
+          handler: handleNFTAuctionEnded
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts
